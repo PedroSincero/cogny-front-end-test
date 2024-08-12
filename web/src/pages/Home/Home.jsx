@@ -12,7 +12,7 @@ export default function Home() {
     fetchProducts();
   }, []);
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#191920] items-center">
+    <div className='w-full h-screen'>
       <button type="button" onClick={getAllProducts} className="bg-red-500">
         Get Documents
       </button>
