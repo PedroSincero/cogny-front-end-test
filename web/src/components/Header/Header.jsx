@@ -1,8 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Logo from '../../assets/Logo';
+import CartHeader from './CartHeader/CartHeader';
 
 export default function Header() {
+
   return (
     <div className="flex flex-col h-full px-60 items-center bg-[#191920]">
       <div className="flex w-full justify-between py-12">
@@ -10,12 +12,7 @@ export default function Header() {
           <p className=" text-4xl font-extrabold">COGNYSHOES</p>
           <Logo />
         </div>
-        <div>
-          <p className="text-white font-bold text-sm">Meu carrinho</p>
-          <p className='text-end text-xs text-[#a3a3a6]'>
-            <span>3</span> itens
-          </p>
-        </div>
+        <CartHeader />
       </div>
       <Outlet />
     </div>
