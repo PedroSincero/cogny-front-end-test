@@ -1,24 +1,24 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import { getAllProducts } from "../../services/products";
+import React from 'react';
+import { View, ScrollView } from 'react-native';
+import ProductItem from '../../components/ProductItem/ProductItem';
 
-
-export default function Home({ navigation }) {
+export default function Home() {
   return (
-    <View className="flex-1 items-center bg-red-50">
-      <Text className="text-blue-400">HOME</Text>
-      <TouchableOpacity
-        className="bg-blue-500 p-4 rounded-lg"
-        onPress={getAllProducts}
-      >
-        <Text className="text-white text-center text-lg">Title</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        className="bg-blue-500 p-4 rounded-lg"
-        onPress={() => navigation.navigate('Cart')}
-      >
-        <Text className="text-white text-center text-lg">Cart</Text>
-      </TouchableOpacity>
+    <View className="flex-1 items-center bg-[#191920]" >
+      <ScrollView>
+        <ProductItem
+          description="Tênis de Caminhada Leve  Confortável"
+          imageUrl="https://static.netshoes.com.br/produtos/tenis-adidas-breaknet-masculino/90/NQQ-4378-890/NQQ-4378-890_zoom1.jpg?ts=1705939673?ims=1088x"
+          price="2577.23"
+          id="0"
+        />
+        <ProductItem
+          description="teste bacana"
+          imageUrl="https://static.netshoes.com.br/produtos/tenis-adidas-breaknet-masculino/90/NQQ-4378-890/NQQ-4378-890_zoom1.jpg?ts=1705939673?ims=1088x"
+          price="2577.23"
+          id="1"
+        />
+      </ScrollView>
     </View>
   );
 }
