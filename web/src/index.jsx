@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import AppRouter from './AppRouter';
 import './index.css';
+import { CartProvider } from './context/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <AppRouter />
+    <CartProvider>
+      <AppRouter />
+    </CartProvider>
   </BrowserRouter>
 );
 

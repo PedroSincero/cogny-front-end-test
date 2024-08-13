@@ -1,9 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { addProductToOrder, getAllOrders, updateProductInOrder } from '../../../services/orders';
+import React, { useContext, useState } from 'react';
+import { updateProductInOrder } from '../../../services/orders';
+import { CartContext } from '../../../context/CartContext';
 
 export default function CartAction({ description, imageUrl, price, id }) {
   const [quantity, setQuantity] = useState(1);
+  const { setCart } = useContext(CartContext);
 
   const handleQuantity = (e) => {
     const { value } = e.target;
@@ -12,26 +13,8 @@ export default function CartAction({ description, imageUrl, price, id }) {
   };
 
   const handleAddToCart = async () => {
-    const fetchOrders = await getAllOrders();
-    const order = fetchOrders[0].products;
-    const exist = order.some((product) => product.id === id);
-    if (exist) {
-      const result = await updateProductInOrder(id, { quantity });
-      localStorage.setItem('orders', JSON.stringify(result));
-    } else {
-      const newProduct = {
-        id,
-        description,
-        imageUrl,
-        price,
-        quantity,
-        timestamp: new Date(),
-      };
-      const getLocal = JSON.parse(localStorage.getItem('orders')) || [];
-      const result = [...getLocal, newProduct]
-      await addProductToOrder(newProduct);
-      localStorage.setItem('orders', JSON.stringify(result));
-    }
+    const cart = await updateProductInOrder(id, { quantity, description, imageUrl, price, id });
+    setCart(cart);
   };
 
   return (

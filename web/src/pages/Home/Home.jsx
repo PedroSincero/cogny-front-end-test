@@ -12,21 +12,16 @@ export default function Home() {
     fetchProducts();
   }, []);
   return (
-    <div className='w-full h-screen'>
-      <button type="button" onClick={getAllProducts} className="bg-red-500">
-        Get Documents
-      </button>
-      <div className="grid grid-cols-3 gap-5">
-        {products.map((product) => (
-          <ProductItem
-            key={product.id}
-            id={product.id}
-            description={product.description}
-            imageUrl={product.imageUrl}
-            price={product.price}
-          />
-        ))}
-      </div>
+    <div className="grid grid-cols-3 gap-5 bg-[#191920]">
+      {products.map((product) => (
+        <ProductItem
+          key={`${product.id} ${product.description}`}
+          id={product.id}
+          description={product.description}
+          imageUrl={product.imageUrl}
+          price={product.price}
+        />
+      ))}
     </div>
   );
 }

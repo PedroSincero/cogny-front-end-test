@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { getAllOrders } from '../../../services/orders';
+import React, { useContext } from 'react';
+import { CartContext } from '../../../context/CartContext';
 
 export default function CartHeader() {
-  const [countItem, setCountItem] = useState(0);
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const result = await getAllOrders();
-      const count = result[0].products.length;
-      setCountItem(count);
-    };
-    fetchOrders();
-  }, []);
+  const { cart } = useContext(CartContext);
   return (
     <div>
       <p className="text-white font-bold text-sm">Meu carrinho</p>
       <p className="text-end text-xs text-[#a3a3a6]">
-        <span>{countItem}</span> itens
+        <span>{cart.length}</span> itens
       </p>
     </div>
   );

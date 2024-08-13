@@ -13,42 +13,29 @@ export const getOrderId = async () => {
   return orderIds[0];
 };
 
-export const addProductToOrder = async (newProduct) => {
-  const orderId = await getOrderId();
-  const orderRef = doc(db, 'orders', orderId);
-
-  try {
-    await updateDoc(orderRef, {
-      products: arrayUnion(newProduct),
-    });
-    console.log('Produto adicionado com sucesso!');
-  } catch (error) {
-    console.error('Erro ao adicionar produto: ', error);
-  }
-};
-
 export const updateProductInOrder = async (productId, updatedProductData) => {
   const orderId = await getOrderId();
   const orderRef = doc(db, 'orders', orderId);
   const orderSnapshot = await getDoc(orderRef);
 
-  if (orderSnapshot.exists()) {
-    const orderData = orderSnapshot.data();
-    const { products } = orderData;
+  const orderData = orderSnapshot.data();
+  const { products } = orderData;
 
-    // Localiza o índice do produto que queremos atualizar
-    const productIndex = products.findIndex((product) => product.id === productId);
+  const productIndex = products.findIndex((product) => product.id === productId);
 
-    if (productIndex !== -1) {
-      // Atualiza os campos do produto desejado
-      products[productIndex] = {
-        ...products[productIndex],
-        quantity: products[productIndex].quantity + updatedProductData.quantity,
-      };
-      // Atualiza o array `products` no Firestore
-      await updateDoc(orderRef, { products });
-    }
-    return { products };
+  if (productIndex !== -1) {
+    products[productIndex] = {
+      ...products[productIndex],
+      ...updatedProductData,
+      quantity: products[productIndex].quantity + 1,
+    };
+
+    await updateDoc(orderRef, { products });
+    return products;
   }
-  return null;
+  const productOrder = [...products, updatedProductData];
+  await updateDoc(orderRef, {
+    products: arrayUnion(updatedProductData),
+  });
+  return productOrder;
 };
