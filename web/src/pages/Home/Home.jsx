@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../../services/products';
+import React, { useContext } from 'react';
 import ProductItem from '../../components/ProductItem/ProductItem';
+import { ProductContext } from '../../context/ProductContext';
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const productsList = await getAllProducts();
-      setProducts(productsList);
-    };
-    fetchProducts();
-  }, []);
+  const { products } = useContext(ProductContext);
+
   return (
     <div className="grid grid-cols-3 gap-5 bg-[#191920]">
       {products.map((product) => (
