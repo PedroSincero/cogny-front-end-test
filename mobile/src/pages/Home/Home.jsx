@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { View, ScrollView } from 'react-native';
 import ProductItem from '../../components/ProductItem/ProductItem';
-import { getAllProducts } from '../../services/products';
+import { ProductContext } from '../../context/ProductContext';
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const productsList = await getAllProducts();
-      setProducts(productsList);
-    };
-    fetchProducts();
-  }, []);
+  const { products } = useContext(ProductContext);
   return (
     <View className="flex-1 items-center bg-[#191920]">
       <ScrollView>
