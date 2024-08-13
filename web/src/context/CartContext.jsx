@@ -18,7 +18,9 @@ export function CartProvider({ children }) {
 
   useEffect(() => {
     if (cart.length !== 0) {
-      const total = cart.reduce((acc, product) => acc + product.price, 0).toFixed(2);
+      const total = cart
+        .reduce((acc, product) => acc + product.price * product.quantity, 0)
+        .toFixed(2);
       setTotalPrice(total);
     }
   }, [cart]);

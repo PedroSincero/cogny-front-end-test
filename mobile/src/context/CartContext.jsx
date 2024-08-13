@@ -5,19 +5,25 @@ export const CartContext = createContext(undefined);
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const fetchOrders = async () => {
       const orders = await getAllOrders();
       const result = orders[0].products;
-      console.log(result);
-      console.log(result, 'teste');
       setCart(result);
     };
     fetchOrders();
   }, []);
 
-  const value = useMemo(() => ({ cart, setCart }), [cart, setCart]);
+  useEffect(() => {
+    if (cart.length !== 0) {
+      const total = cart.reduce((acc, product) => acc + product.price * product.quantity, 0).toFixed(2);
+      setTotalPrice(total);
+    }
+  }, [cart]);
+
+  const value = useMemo(() => ({ cart, totalPrice, setCart }), [cart, totalPrice, setCart]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
