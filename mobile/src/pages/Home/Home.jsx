@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import ProductItem from '../../components/ProductItem/ProductItem';
+import { getAllProducts } from '../../services/products';
 
 export default function Home() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsList = await getAllProducts();
+      setProducts(productsList);
+    };
+    fetchProducts();
+  }, []);
   return (
-    <View className="flex-1 items-center bg-[#191920]" >
+    <View className="flex-1 items-center bg-[#191920]">
       <ScrollView>
-        <ProductItem
-          description="Tênis de Caminhada Leve  Confortável"
-          imageUrl="https://static.netshoes.com.br/produtos/tenis-adidas-breaknet-masculino/90/NQQ-4378-890/NQQ-4378-890_zoom1.jpg?ts=1705939673?ims=1088x"
-          price="2577.23"
-          id="0"
-        />
-        <ProductItem
-          description="teste bacana"
-          imageUrl="https://static.netshoes.com.br/produtos/tenis-adidas-breaknet-masculino/90/NQQ-4378-890/NQQ-4378-890_zoom1.jpg?ts=1705939673?ims=1088x"
-          price="2577.23"
-          id="1"
-        />
+        {products.map((product) => (
+          <ProductItem
+            key={`${product.id} ${product.description}`}
+            description={product.description}
+            imageUrl={product.imageUrl}
+            price={product.price}
+            id={product.id}
+          />
+        ))}
       </ScrollView>
     </View>
   );

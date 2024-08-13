@@ -18,15 +18,14 @@ export default function App() {
       <CartProvider>
         <Stack.Navigator
           initialRouteName="Home"
-          screenOptions={({ navigation }) => ({
+          screenOptions={() => ({
             headerStyle: {
               backgroundColor: '#191920',
               borderBottomWidth: 0,
-              paddingLeft: 20,
             },
             headerShadowVisible: false,
-            headerRight: () => <CartBtn navigation={navigation} />,
-            headerTitle: () => <Logo />
+            headerRight: () => <CartBtn />,
+            headerLeft: () => <Logo />
           })}
         >
           <Stack.Screen name="Home" component={Home} />
