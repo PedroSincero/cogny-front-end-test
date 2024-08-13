@@ -1,37 +1,11 @@
 import Swal from 'sweetalert2';
 import React, { useContext } from 'react';
-import Table from './Table/Table';
+import Table from '../../components/Table/Table';
 import { CartContext } from '../../context/CartContext';
 import { deleteOrder } from '../../services/orders';
 
 export default function Cart() {
   const { cart, setCart, totalPrice } = useContext(CartContext);
-  // const products = [
-  //   {
-  //     id: 1,
-  //     imageUrl:
-  //       'https://static.netshoes.com.br/produtos/tenis-adidas-breaknet-masculino/90/NQQ-4378-890/NQQ-4378-890_zoom1.jpg?ts=1705939673?ims=1088x',
-  //     description: 'Tênis de Caminhada Leve Confortável',
-  //     price: 179.9,
-  //     quantity: 3,
-  //   },
-  //   {
-  //     id: 2,
-  //     imageUrl:
-  //       'https://static.netshoes.com.br/produtos/tenis-adidas-breaknet-masculino/90/NQQ-4378-890/NQQ-4378-890_zoom1.jpg?ts=1705939673?ims=1088x',
-  //     description: 'Tênis de Caminhada Leve Confortável',
-  //     price: 179.9,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     id: 3,
-  //     imageUrl:
-  //       'https://static.netshoes.com.br/produtos/tenis-adidas-breaknet-masculino/90/NQQ-4378-890/NQQ-4378-890_zoom1.jpg?ts=1705939673?ims=1088x',
-  //     description: 'Tênis de Caminhada Leve Confortável',
-  //     price: 179.9,
-  //     quantity: 1,
-  //   },
-  // ];
 
   const handleClick = async () => {
     Swal.fire({
