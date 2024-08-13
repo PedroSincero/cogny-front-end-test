@@ -39,3 +39,13 @@ export const updateProductInOrder = async (productId, updatedProductData) => {
   });
   return productOrder;
 };
+
+export const deleteOrder = async () => {
+  const orderId = await getOrderId();
+  const orderRef = doc(db, 'orders', orderId);
+
+  await updateDoc(orderRef, {
+    products: [],
+    userId: 0,
+  });
+};
