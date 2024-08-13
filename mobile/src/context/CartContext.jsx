@@ -11,6 +11,7 @@ export function CartProvider({ children }) {
       const orders = await getAllOrders();
       const result = orders[0].products;
       console.log(result);
+      console.log(result, 'teste');
       setCart(result);
     };
     fetchOrders();
