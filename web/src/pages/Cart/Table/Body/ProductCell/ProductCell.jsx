@@ -10,7 +10,7 @@ export default function ProductCell({ description, imageUrl, price }) {
         <div className="flex items-center">
           <div>
             <p className="font-bold text-sm text-[#333333]">{description}</p>
-            <p className="font-bold text-black">R${price.toFixed(2)}</p>
+            <p className="font-bold text-black">R${price}</p>
           </div>
         </div>
       </td>

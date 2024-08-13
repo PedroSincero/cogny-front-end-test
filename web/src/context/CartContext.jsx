@@ -5,6 +5,7 @@ export const CartContext = createContext(undefined);
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -15,7 +16,14 @@ export function CartProvider({ children }) {
     fetchOrders();
   }, []);
 
-  const value = useMemo(() => ({ cart, setCart }), [cart, setCart]);
+  useEffect(() => {
+    if (cart.length !== 0) {
+      const total = cart.reduce((acc, product) => acc + product.price, 0).toFixed(2);
+      setTotalPrice(total);
+    }
+  }, [cart]);
+
+  const value = useMemo(() => ({ cart, totalPrice, setCart }), [cart, totalPrice, setCart]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
