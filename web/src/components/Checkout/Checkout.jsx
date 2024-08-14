@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Swal from 'sweetalert2';
-import { CartContext } from '../../../context/CartContext';
-import { deleteOrder } from '../../../services/orders';
+import { CartContext } from '../../context/CartContext';
+import { deleteOrder } from '../../services/orders';
 
 export default function Checkout() {
   const { setCart, totalPrice } = useContext(CartContext);
