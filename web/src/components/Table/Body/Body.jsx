@@ -13,7 +13,7 @@ export default function Body({ products }) {
             description={product.description}
             price={product.price}
           />
-          <QuantityCell quantity={product.quantity} />
+          <QuantityCell quantity={product.quantity} id={product.id} />
           <PriceCell price={product.price} quantity={product.quantity} />
         </tr>
       ))}
