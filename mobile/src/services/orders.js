@@ -13,7 +13,7 @@ export const getOrderId = async () => {
   return orderIds[0];
 };
 
-export const updateProductInOrder = async (productId, updatedProductData) => {
+export const addProductInOrder = async (productId, addProductData) => {
   const orderId = await getOrderId();
   const orderRef = doc(db, 'orders', orderId);
   const orderSnapshot = await getDoc(orderRef);
@@ -26,19 +26,54 @@ export const updateProductInOrder = async (productId, updatedProductData) => {
   if (productIndex !== -1) {
     products[productIndex] = {
       ...products[productIndex],
-      ...updatedProductData,
+      ...addProductData,
       quantity: products[productIndex].quantity + 1,
     };
 
     await updateDoc(orderRef, { products });
     return products;
   }
-  const productOrder = [...products, updatedProductData];
+  const productOrder = [...products, addProductData];
   await updateDoc(orderRef, {
-    products: arrayUnion(updatedProductData),
+    products: arrayUnion(addProductData),
   });
   return productOrder;
 };
+
+export const updateProductById = async (productId, productData) => {
+  const orderId = await getOrderId();
+  const orderRef = doc(db, 'orders', orderId);
+  const orderSnapshot = await getDoc(orderRef);
+
+  const orderData = orderSnapshot.data();
+  const { products } = orderData;
+
+  const productIndex = products.findIndex((product) => product.id === productId);
+
+  products[productIndex] = {
+    ...products[productIndex],
+    ...productData,
+  };
+
+  await updateDoc(orderRef, { products });
+  return products;
+}
+
+export const deleteProductById = async (productId) => {
+  const orderId = await getOrderId();
+  const orderRef = doc(db, 'orders', orderId);
+  const orderSnapshot = await getDoc(orderRef);
+
+  const orderData = orderSnapshot.data();
+  const { products } = orderData;
+
+  const productIndex = products.findIndex((product) => product.id === productId);
+
+  products.splice(productIndex, 1);
+
+  await updateDoc(orderRef, { products });
+  return products;
+};  
 
 export const deleteOrder = async () => {
   const orderId = await getOrderId();

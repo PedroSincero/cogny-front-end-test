@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { updateProductInOrder } from '../../../services/orders';
+import { addProductInOrder } from '../../../services/orders';
 import { CartContext } from '../../../context/CartContext';
 
 export default function CartAction({ description, imageUrl, price, id }) {
@@ -13,7 +13,7 @@ export default function CartAction({ description, imageUrl, price, id }) {
   };
 
   const handleAddToCart = async () => {
-    const cart = await updateProductInOrder(id, { quantity, description, imageUrl, price, id });
+    const cart = await addProductInOrder(id, { quantity, description, imageUrl, price, id });
     setCart(cart);
   };
 
